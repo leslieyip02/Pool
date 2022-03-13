@@ -59,6 +59,11 @@ function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   frameRate(FR);
 
+  document.getElementById('menu').addEventListener('touchstart', dropdown, false);
+  document.getElementById('singleplayer').addEventListener('touchstart', singleplayerSetup, false);
+  document.getElementById('multiplayer').addEventListener('touchstart', multiplayerSetup, false);
+  document.getElementById('undo').addEventListener('touchstart', undo, false);
+
   singleplayerSetup();
 }
 

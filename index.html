@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand">
+
+    <script src="https://kit.fontawesome.com/333fd59b62.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8" />
+
+    <script src="ball.js" defer></script>
+    <script src="cue.js" defer></script>
+    <script src="stick.js" defer></script>
+    <script src="corner.js" defer></script>
+    <script src="wall.js" defer></script>
+    <script src="pocket.js" defer></script>
+    <script src="sketch.js" defer></script>
+  </head>
+  <body>
+    <i id="menu" class="fa-solid fa-bars" onclick="dropdown()" onmouseover="return menu=true;" onmouseout="return menu=false;"></i>
+    <div id="selectors" onmouseover="return menu=true;" onmouseout="return menu=false;">
+      <i class="fa-solid fa-user"></i>
+      <b class="selector" onclick="singleplayerSetup()">Singleplayer</b>
+      <i class="fa-solid fa-user-group"></i>
+      <b class="selector" onclick="multiplayerSetup()">Multiplayer</b>
+      <i class="fa-solid fa-arrow-rotate-left"></i>
+      <b class="selector" onclick="undo()">Undo</b>
+    </div>
+  </body>
+</html>

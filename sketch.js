@@ -1,11 +1,13 @@
 const FR = 60;
 
+let small = window.innerHeight > 500;
+
 // ball setup
-const BALL_RADIUS = (window.innerHeight > 500 ? 16 : 12);
+const BALL_RADIUS = small ? 16 : 12;
 // table setup
-const TABLE_BORDER = (window.innerHeight > 500 ? 60 : 48);
-const TABLE_WIDTH = (window.innerHeight > 500 ? 800 : 600) + BALL_RADIUS * 2;
-const TABLE_HEIGHT = (window.innerHeight > 500 ? 400 : 300) + BALL_RADIUS * 2;
+const TABLE_BORDER = small ? 60 : 48;
+const TABLE_WIDTH = (small ? 800 : 600) + BALL_RADIUS * 2;
+const TABLE_HEIGHT = (small ? 400 : 300) + BALL_RADIUS * 2;
 const POCKET_RADIUS = BALL_RADIUS * 2;
 
 // colors
@@ -58,11 +60,6 @@ function preload() {
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   frameRate(FR);
-
-  document.getElementById('menu').addEventListener('touchstart', dropdown, false);
-  document.getElementById('singleplayer').addEventListener('touchstart', singleplayerSetup, false);
-  document.getElementById('multiplayer').addEventListener('touchstart', multiplayerSetup, false);
-  document.getElementById('undo').addEventListener('touchstart', undo, false);
 
   singleplayerSetup();
 }
@@ -170,8 +167,6 @@ function multiplayerSetup() {
   generateWalls();
 }
 
-// don't let stick become active when player clicks on menu
-let menu = false;
 function dropdown() {
   let selectorMenu = document.getElementById('selectors');
   if (selectorMenu.style.display == 'grid') {
@@ -180,7 +175,6 @@ function dropdown() {
     selectorMenu.style.display = 'grid';
   }
 }
-
 function touchMoved(e) {
   // check all balls are stationary
   let moving = balls.some(ball => {
@@ -203,12 +197,7 @@ function touchMoved(e) {
   e.preventDefault();
 }
 function touchEnded(e) {
-  // check all balls are stationary
-  let moving = balls.some(ball => {
-    return ball.dx ** 2 + ball.dy ** 2 > 0;
-  });
-
-  if (stick && !moving && !menu) {
+  if (stick && stick.visible) {
     // set the ball if it isn't set
     if (balls.indexOf(cue) == -1) {
       cue.place();
@@ -218,8 +207,10 @@ function touchEnded(e) {
       stick.active = true;
     }
   }
+}
 
-  e.preventDefault();
+function windowResized() {
+  location.reload();
 }
 
 // store states in a stack for undo

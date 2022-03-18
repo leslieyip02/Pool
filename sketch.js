@@ -181,31 +181,25 @@ function touchMoved(e) {
     return ball.dx ** 2 + ball.dy ** 2 > 0;
   });
 
-  if (stick && !moving) {
-    // if the ball isn't rendered, allow it to be placed
-    if (balls.indexOf(cue) == -1) {
-      cue.cx = mouseX;
-      cue.cy = mouseY;
-
-    // touch movement aims stick
-    } else {
-      stick.visible = true;
-      stick.cursor = { x: mouseX, y: mouseY };
-    }
+  // if the ball isn't rendered, allow it to be placed
+  if (balls.indexOf(cue) == -1) {
+    cue.cx = mouseX;
+    cue.cy = mouseY;
+  // touch movement aims stick
+  } else if (stick && !moving) {
+    stick.visible = true;
+    stick.cursor = { x: mouseX, y: mouseY };
   }
 
   e.preventDefault();
 }
 function touchEnded(e) {
-  if (stick && stick.visible) {
-    // set the ball if it isn't set
-    if (balls.indexOf(cue) == -1) {
-      cue.place();
-
-    // touch release launches stick and cue
-    } else {
-      stick.active = true;
-    }
+  // set the ball if it isn't set
+  if (balls.indexOf(cue) == -1) {
+    cue.place();
+  // touch release launches stick and cue
+  } else if (stick && stick.visible) {
+    stick.active = true;
   }
 }
 
